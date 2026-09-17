@@ -1,0 +1,42 @@
+package EdTech.Course.model;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
+@Table(name = "course")
+public class Course {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String name;
+	private String description;
+	private String instructor;
+	private Long amount;
+	
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<CourseMaterial> courseMaterial;
+	
+	@ManyToMany(mappedBy = "courses", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+		CascadeType.REFRESH})
+	@JsonManagedReference
+	private List<Student> enrollment;
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private Teacher teacher;
+	
+}
