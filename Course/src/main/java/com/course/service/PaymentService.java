@@ -21,19 +21,22 @@ public class PaymentService {
 	private final CourseRepository courseRepository;
 	private final UserRepository userRepository;
 	
-	public void payCourse(PaymentDto paymentDto) {
+	public Long payCourse(PaymentDto paymentDto) {
 		Optional<Course> course = courseRepository.findById(paymentDto.getCourseId());
 		Optional<AppUser> user = userRepository.findById(paymentDto.getUserId());
+		Long paymentId;
 		if (course.isPresent() && user.isPresent()) {
 			Payment payment = new Payment();
 			payment.setCourseId(paymentDto.getCourseId());
 			payment.setAmount(paymentDto.getAmount());
 			payment.setUserId(user.get().getId());
 			payment.setDate(LocalDate.now());
-			Payment.PaymentMethod.valueOf(String.valueOf(paymentDto.getPaymentMethod()));
+			payment.setPaymentMethod(Payment.PaymentMethod.valueOf(String.valueOf(paymentDto.getPaymentMethod())));
 			paymentRepository.save(payment);
-		} else
-			throw new RuntimeException("course or User not found");
+			paymentId = payment.getId();
+			log.info("Payment with Id: {}", paymentId);
+		} else throw new RuntimeException("course or User not found");
+		return paymentId;
 	}
 	
 	public PaymentDto getPayById(Long id) {
@@ -44,8 +47,8 @@ public class PaymentService {
 			paymentDto.setCourseId(payment.get().getCourseId());
 			paymentDto.setUserId(payment.get().getUserId());
 			paymentDto.setDate(payment.get().getDate());
-		} else
-			throw new RuntimeException("Payment not found");
+			paymentDto.setPaymentMethod(payment.get().getPaymentMethod().toString());
+		} else throw new RuntimeException("Payment not found");
 		return paymentDto;
 	}
 	

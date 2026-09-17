@@ -13,11 +13,11 @@ public class PaymentController {
 	private final PaymentService paymentService;
 	
 	@PostMapping("/{courseId}")
-	public String payment(@PathVariable Long courseId, @RequestBody PaymentDto paymentDto) {
+	public Long payment(@PathVariable Long courseId, @RequestBody PaymentDto paymentDto) {
 		log.info("Payment request for course {} with amount {}", paymentDto.getCourseId(), paymentDto.getAmount());
 		paymentDto.setCourseId(courseId);
-		paymentService.payCourse(paymentDto);
-		return "Payment Success";
+		return paymentService.payCourse(paymentDto);
+		
 	}
 	
 	@GetMapping("/{id}")
