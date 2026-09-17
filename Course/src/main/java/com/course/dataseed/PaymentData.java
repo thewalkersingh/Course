@@ -28,10 +28,10 @@ public class PaymentData {
 				return;
 			}
 			List<Course> courses = courseRepository.findAll();
-			for (int i = 0; i < 100; i++) {
+			for (int i = 0; i < 50; i++) {
 				Course course = courses.get(random.nextInt(courses.size()));
 				Payment payment = new Payment();
-				payment.setUserId(faker.number().numberBetween(1L, 101L));
+				payment.setUserId(faker.number().numberBetween(1L, 10L));
 				payment.setCourseId(course.getId());
 				
 				payment.setDate(faker.date()

@@ -17,7 +17,7 @@ public class CourseMaterial {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String type;
+	private String fileType;
 	private String description;
 	
 	@ManyToOne

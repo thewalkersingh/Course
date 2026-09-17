@@ -1,7 +1,6 @@
 package com.course.dto;
 
 import com.course.model.CourseMaterial;
-import com.course.model.Enrollment;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +16,5 @@ public class CourseDto {
 	private String instructor;
 	private Long amount;
 	private List<CourseMaterial> courseMaterial;
-	private List<Enrollment> enrollments;
 	
 }

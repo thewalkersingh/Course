@@ -72,13 +72,6 @@ public class CourseController {
 		return new ResponseMessage("course Deleted Successfully");
 	}
 	
-	@PostMapping("/course/{courseId}/register/{userId}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseMessage registerForCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-		courseService.createEnrollmentForCourse(courseId, userId);
-		return new ResponseMessage("Student Enrolled Successfully");
-	}
-	
 	public ResponseMessage registerForCourseFallback(@PathVariable Long courseId, @PathVariable Long userId) {
 		return new ResponseMessage("Services not available");
 	}

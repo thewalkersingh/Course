@@ -30,8 +30,4 @@ public class Course {
 	@JsonManagedReference
 	private List<CourseMaterial> courseMaterial;
 	
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Enrollment> enrollment;
-	
 }
